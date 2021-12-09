@@ -9,22 +9,30 @@ class Person extends Model
 {
     use HasFactory;
 
-    protected $table = 'persons';
+//    protected $table = 'persons';
+
+    private $helper = 'asdf';
 
     protected $fillable = [
+        'id',
         'name',
         'birthday',
-    ];
-
-    protected $hidden = [
-        'pivot',
         'created_at',
         'updated_at'
     ];
 
+    protected $hidden = [
+        'pivot',
+    ];
+
     public function pets(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Pet::class);
+        return $this->belongsToMany(Pet::class)->withTimestamps();
+    }
+
+    public function getHelper()
+    {
+        return $this->helper;
     }
 
 }

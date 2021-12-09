@@ -10,14 +10,15 @@ class Pet extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'name',
         'type',
+        'created_at',
+        'updated_at'
     ];
 
     protected $hidden = [
         'pivot',
-        'created_at',
-        'updated_at'
     ];
 
     public function type(): \Illuminate\Database\Eloquent\Relations\HasOne

@@ -7,7 +7,7 @@ use App\Models\Pet;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 
-class PersonPetsSeeder extends Seeder
+class PersonPetSeeder extends Seeder
 {
 
     /**

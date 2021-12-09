@@ -3,11 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Person;
-use App\Models\Pet;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 
-class PersonsSeeder extends Seeder
+class PeopleSeeder extends Seeder
 {
 
     /**
@@ -32,14 +31,6 @@ class PersonsSeeder extends Seeder
         foreach ($persons as $person)
         {
             Person::create($person);
-//                ->pets()
-//                ->attach(
-//                    Pet::where('name','yuno')->get(),
-//                    [
-//                        'adopted' => Carbon::createFromDate(2013,3,5)
-//                    ]
-//                );
-
         }
 
     }

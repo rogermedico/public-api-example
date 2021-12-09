@@ -16,7 +16,7 @@ class CreatePersonPetTable extends Migration
         Schema::create('person_pet', function (Blueprint $table) {
             $table->bigInteger('person_id')->unsigned();
             $table->bigInteger('pet_id')->unsigned();
-            $table->foreign('person_id')->references('id')->on('persons')->onDelete('cascade');
+            $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
             $table->foreign('pet_id')->references('id')->on('pets')->onDelete('cascade');
             $table->primary(['person_id','pet_id']);
             $table->date('adopted');

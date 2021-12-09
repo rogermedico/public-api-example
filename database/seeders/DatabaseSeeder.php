@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PetTypesSeeder::class,
             PetsSeeder::class,
-            PersonsSeeder::class,
-            PersonPetsSeeder::class,
+            PeopleSeeder::class,
+            PersonPetSeeder::class,
         ]);
     }
 }
