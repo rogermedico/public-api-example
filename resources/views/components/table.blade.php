@@ -1,24 +1,32 @@
-<h2>{{$model->getTable()}}</h2>
-@if(method_exists($model,'getHelper'))
-    <p>{{$model->getHelper()}}</p>
+<h2>Table: {{$tableName}}</h2>
+@isset($hint)
+    <p class="mb-2">{{$hint}}</p>
 @endif
-<table class="table table-striped">
-    <thead>
-        <tr>
-            @foreach($model->getFillable() as $column)
-                <th scope="col">{{$column}}</th>
-            @endforeach
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($tableData->toArray() as $row)
+<div class="table-responsive">
+    <table class="table table-sm table-striped">
+        <thead>
             <tr>
-                @foreach($row as $key => $value)
-                    <td>
-                        {{$value}}
-                    </td>
+                @foreach($tableColumns as $column)
+                    <th scope="col">{{$column}}</th>
                 @endforeach
             </tr>
-        @endforeach
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach($tableData as $row)
+                <tr>
+                    @foreach($row as $value)
+                        @if($loop->first)
+                            <th scope="row">
+                                {{$value}}
+                            </th>
+                        @else
+                            <td>
+                                {{$value}}
+                            </td>
+                        @endif
+                    @endforeach
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>

@@ -9,10 +9,6 @@ class Person extends Model
 {
     use HasFactory;
 
-//    protected $table = 'persons';
-
-    private $helper = 'asdf';
-
     protected $fillable = [
         'id',
         'name',
@@ -28,11 +24,6 @@ class Person extends Model
     public function pets(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Pet::class)->withTimestamps();
-    }
-
-    public function getHelper()
-    {
-        return $this->helper;
     }
 
 }

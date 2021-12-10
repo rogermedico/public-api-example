@@ -1,0 +1,6 @@
+.table {
+    & > { border-bottom: 1px solid currentColor }
+    & > :not(:first-child) { border-top: none; }
+    & > :not(:last-child) { border-bottom: none; }
+    & > tbody > tr > th { font-weight: normal }
+}

@@ -11306,3 +11306,16 @@ h1, .h1 {
     font-size: 3.5rem;
   }
 }
+
+.table > {
+  border-bottom: 1px solid currentColor;
+}
+.table > :not(:first-child) {
+  border-top: none;
+}
+.table > :not(:last-child) {
+  border-bottom: none;
+}
+.table > tbody > tr > th {
+  font-weight: normal;
+}

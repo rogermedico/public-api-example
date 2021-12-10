@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Public API</title>
-    <meta name="description" content="{{__('Public API example')}}">
+    <meta name="description" content="{{__('Public API Example')}}">
     <meta name="keywords" content="laravel api">
     <meta name="author" content="Roger Medico">
     <link rel="icon" type="image/png" href="{{asset('storage/favicon/favicon.ico')}}">
@@ -13,16 +13,20 @@
 </head>
 <body>
     <main class="container">
-        <div>
+        <section>
             <h1 class="text-center text-md-start">{{__('public api')}}</h1>
             <p>bla bla bla</p>
-        </div>
-        <div>
+        </section>
+        <section>
             <h1 class="text-center text-md-start">{{__('db content')}}</h1>
                 @foreach($db as $table)
-                    <x-table :model="$table->model" :table-data="$table->data"/>
+                    <x-table
+                        :model="$table->model"
+                        :table-data="$table->data"
+                        :hint="$table->hint"
+                    />
                 @endforeach
-        </div>
+        </section>
     </main>
     <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
 </body>

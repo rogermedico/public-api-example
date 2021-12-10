@@ -28,18 +28,22 @@ class HomeController extends Controller
                     (object) [
                         'model' => new Person(),
                         'data' => Person::all(),
+                        'hint' => __('Holds people information.')
                     ],
                     (object) [
                         'model' => new Pet(),
-                        'data' => Pet::all()
+                        'data' => Pet::all(),
+                        'hint' => __('Holds pets information.')
                     ],
                     (object) [
                         'model' => new PetType(),
                         'data' => PetType::all(),
+                        'hint' => __('Holds pet types information.')
                     ],
                     (object) [
                         'model' => new PersonPet(),
                         'data' => PersonPet::all(),
+                        'hint' => __('Holds the relations between people and pets.')
                     ]
                 ]
             ]
