@@ -15,7 +15,9 @@
     <main class="container">
         <section>
             <h1 class="text-center text-md-start">{{__('public api')}}</h1>
-            <p>bla bla bla</p>
+            @foreach($routes as $route)
+                <p>{{implode('|',$route->methods)}}{{$route->uri}}</p>
+            @endforeach
         </section>
         <section>
             <h1 class="text-center text-md-start">{{__('db content')}}</h1>

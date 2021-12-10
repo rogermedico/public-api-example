@@ -1,4 +1,4 @@
-<h2>Table: {{$tableName}}</h2>
+<h2>table: {{$tableName}}</h2>
 @isset($hint)
     <p class="mb-2">{{$hint}}</p>
 @endif

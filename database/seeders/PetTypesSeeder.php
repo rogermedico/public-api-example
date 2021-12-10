@@ -17,6 +17,14 @@ class PetTypesSeeder extends Seeder
             'id' => 2,
             'name' => 'dog'
         ],
+        [
+            'id' => 3,
+            'name' => 'tortoise'
+        ],
+        [
+            'id' => 4,
+            'name' => 'parrot'
+        ],
     ];
 
 
