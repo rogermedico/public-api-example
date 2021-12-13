@@ -1,0 +1,401 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Public API Example Documentation",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "roger.medico@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/public-api/public/api",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/person": {
+            "get": {
+                "tags": [
+                    "People"
+                ],
+                "summary": "Get list of people",
+                "description": "Returns list of people",
+                "operationId": "getPersonList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PeopleResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "People"
+                ],
+                "summary": "Store new person",
+                "description": "Returns the person created data",
+                "operationId": "storePerson",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePersonRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Person"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The name field is required."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/person/{id}": {
+            "get": {
+                "tags": [
+                    "People"
+                ],
+                "summary": "Get person information",
+                "description": "Returns person data",
+                "operationId": "getPersonById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Person id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PersonResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Object not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "People"
+                ],
+                "summary": "Update existing person",
+                "description": "Returns updated person data",
+                "operationId": "updatePerson",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Person id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePersonRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Person"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The name must not be greater than 255 characters."
+                                            }
+                                        },
+                                        "birthday": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The birthday is not a valid date."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Object not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "People"
+                ],
+                "summary": "Delete existing person",
+                "description": "Deletes a person record and returns no content",
+                "operationId": "deletePerson",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Project id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Object not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Person": {
+                "title": "Person",
+                "description": "Person model",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "type": "string",
+                        "format": "string",
+                        "example": "Roger Medico"
+                    },
+                    "birthday": {
+                        "title": "birthday",
+                        "description": "birthday",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1989-11-17"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "when record was created",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "when record was updated",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Person"
+                }
+            },
+            "StorePersonRequest": {
+                "title": "StorePersonRequest",
+                "description": "Store Person request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the new person",
+                        "type": "string",
+                        "example": "Roger"
+                    },
+                    "birthday": {
+                        "title": "birthday",
+                        "description": "Birthday of the new person",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1990-5-30"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePersonRequest": {
+                "title": "UpdatePersonRequest",
+                "description": "Update Person request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "New name for the updated person",
+                        "type": "string",
+                        "example": "Roger"
+                    },
+                    "birthday": {
+                        "title": "birthday",
+                        "description": "New birthday for the updated person",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1990-5-30"
+                    }
+                },
+                "type": "object"
+            },
+            "PeopleResource": {
+                "title": "PeopleResource",
+                "description": "People resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Person"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PeopleResource"
+                }
+            },
+            "PersonResource": {
+                "title": "PersonResource",
+                "description": "Person resource",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/Person"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PersonResource"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "People",
+            "description": "API Endpoints of People"
+        }
+    ],
+    "security": [
+        []
+    ]
+}

@@ -10,10 +10,7 @@ class PetType extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
-        'name',
-        'created_at',
-        'updated_at'
+        'name'
     ];
 
     protected $hidden = [

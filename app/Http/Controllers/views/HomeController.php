@@ -43,7 +43,6 @@ class HomeController extends Controller
     private function getApiRoutePaths($startingWith = '')
     {
         return collect(Route::getRoutes())->reduce(function ($carry, $route) use ($startingWith) {
-//            !str_starts_with($route->uri(), $startingWith) ?: $carry[] = $route->uri();
             if(str_starts_with($route->uri(), $startingWith))
             {
                 $carry[] = (object) [

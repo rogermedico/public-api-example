@@ -14,9 +14,7 @@ class PersonPet extends Model
     protected $fillable = [
         'person_id',
         'pet_id',
-        'adopted',
-        'created_at',
-        'updated_at'
+        'adopted'
     ];
 
     protected $hidden = [

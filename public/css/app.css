@@ -11307,6 +11307,15 @@ h1, .h1 {
   }
 }
 
+.authentication-key {
+  font-size: 1.1rem;
+}
+@media (min-width: 768px) {
+  .authentication-key {
+    font-size: 1.5rem;
+  }
+}
+
 .table > {
   border-bottom: 1px solid currentColor;
 }

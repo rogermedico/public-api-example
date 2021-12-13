@@ -1,0 +1,6 @@
+.authentication-key {
+    font-size: 1.1rem;
+    @include media-breakpoint-up(md) {
+        font-size: 1.5rem;
+    }
+}

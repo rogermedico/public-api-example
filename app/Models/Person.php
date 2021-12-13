@@ -10,15 +10,12 @@ class Person extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'name',
-        'birthday',
-        'created_at',
-        'updated_at'
+        'birthday'
     ];
 
     protected $hidden = [
-        'pivot',
+        'pivot'
     ];
 
     public function pets(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
