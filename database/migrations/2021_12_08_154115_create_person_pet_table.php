@@ -20,7 +20,7 @@ class CreatePersonPetTable extends Migration
             $table->foreign('pet_id')->references('id')->on('pets')->onDelete('cascade');
             $table->primary(['person_id','pet_id']);
             $table->date('adopted');
-            $table->string('record_author');
+            $table->string('token_id');
             $table->timestamps();
         });
     }

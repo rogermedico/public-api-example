@@ -27,8 +27,23 @@ class PersonController extends Controller
      *          response=200,
      *          description="Successful operation",
      *          @OA\JsonContent(ref="#/components/schemas/PeopleResource")
-     *       ),
-     *     )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Unauthenticated"
+     *              )
+     *          )
+     *      ),
+     *      security={
+     *          {"bearer": {}}
+     *      }
+     * ),
      */
     public function index(Request $request)
     {
@@ -72,15 +87,34 @@ class PersonController extends Controller
      *                  )
      *              )
      *          )
-     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Unauthenticated"
+     *              )
+     *          )
+     *      ),
+     *      security={
+     *          {"bearer": {}}
+     *      }
      * )
      */
     public function store(StorePersonRequest $request)
     {
-
         $validated = $request->validated();
-        $person = Person::create($validated);
-        $person = Person::find($person);
+        $person = Person::create(array_merge(
+            $validated,
+            [
+                'token_id' => $request->user()->currentAccessToken()->id
+            ]
+        ));
+        $person = Person::find($person->id);
         return (new PersonResource($person))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
@@ -123,7 +157,22 @@ class PersonController extends Controller
      *                  example="Object not found"
      *              )
      *          )
-     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Unauthenticated"
+     *              )
+     *          )
+     *      ),
+     *      security={
+     *          {"bearer": {}}
+     *      }
      * )
      *
      */
@@ -199,13 +248,44 @@ class PersonController extends Controller
      *                  example="Object not found"
      *              )
      *          )
-     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Unauthenticated"
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Forbidden"
+     *              )
+     *          )
+     *      ),
+     *      security={
+     *          {"bearer": {}}
+     *      }
      * )
      */
     public function update(UpdatePersonRequest $request, Person $person)
     {
-        $person->update(($request->validated()));
+        if ($request->user()->currentAccessToken()->id !== $person->token_id)
+        {
+            return response()->json(['message' => 'Forbidden'],Response::HTTP_FORBIDDEN);
+        }
 
+        $person->update(($request->validated()));
         return (new PersonResource($person))
             ->response()
             ->setStatusCode(Response::HTTP_ACCEPTED);
@@ -215,7 +295,7 @@ class PersonController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  Person $person
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      *
      * * @OA\Delete(
      *      path="/person/{id}",
@@ -247,11 +327,43 @@ class PersonController extends Controller
      *                  example="Object not found"
      *              )
      *          )
-     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Unauthenticated"
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Forbidden"
+     *              )
+     *          )
+     *      ),
+     *      security={
+     *          {"bearer": {}}
+     *      }
      * )
      */
-    public function destroy(Person $person)
+    public function destroy(Request $request, Person $person)
     {
+        if ($request->user()->currentAccessToken()->id !== $person->token_id)
+        {
+            return response()->json(['message' => 'Forbidden'],Response::HTTP_FORBIDDEN);
+        }
+
         $person->delete();
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }

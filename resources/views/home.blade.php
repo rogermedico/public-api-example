@@ -14,22 +14,33 @@
 <body>
     <main class="container">
         <section class="mb-3">
-            <h1>{{__('api documentation')}}</h1>
+            <h1>{{__('your authentication key')}}</h1>
             <div class="ps-3">
                 <p>
-                    Documentation done with <a href="https://swagger.io/" alt="Swagger">Swagger</a> using the composer packet <a href="https://github.com/DarkaOnLine/L5-Swagger" alt="DarkaOnLine/L5-Swagger">darkaonline/l5-swagger</a>.
-
+                    This authentication token allows you to retrieve (GET) and crate (POST) DB records as you please, but you can just modify (PUT) or
+                    delete (DELETE) contents created with the same authentication token. The column <code>token_id</code> from the DB tables shows the id from the token used
+                    to create the record.
                 </p>
-                <div class="text-center text-md-start">
-                    <a class="btn btn-primary" href="{{url('api/documentation')}}">Open documentation</a>
-                </div>
+                <p>The authentication is made with a Bearer token. To correctly authenticate your requests a header entry
+                    specifying the authentication of the request should be added. To quickly allow you to identify your records the
+                    id of the key is the first number, so if your key starts with a 12 the records that his <code>token_id</code> is equal
+                    to 12 are your records, and you are allowed to modify or delete.
+                </p>
+                <p>An example of the authentication header that has to be included in every request could be as follows
+                    <code>Authorization: Bearer @{{token provided}}</code></p>
+                <p>Tokens will be valid for 24 hours.</p>
+                <div class="alert alert-success text-center font-monospace authentication-key">{{$api_token}}</div>
             </div>
         </section>
         <section class="mb-3">
-            <h1>{{__('your authentication key')}}</h1>
+            <h1>{{__('api documentation')}}</h1>
             <div class="ps-3">
-                <div class="alert alert-success text-center font-monospace authentication-key">
-                    5f4dcc3b5aa765d61d8327deb882cf99
+                <p>
+                    Documentation done with <a href="https://swagger.io/" alt="Swagger">Swagger</a> using the composer
+                    packet <a href="https://github.com/DarkaOnLine/L5-Swagger" alt="DarkaOnLine/L5-Swagger">darkaonline/l5-swagger</a>.
+                </p>
+                <div class="text-center text-md-start">
+                    <a class="btn btn-primary" href="{{url('api/documentation')}}">Open documentation</a>
                 </div>
             </div>
         </section>

@@ -25,7 +25,7 @@ class PersonPetSeeder extends Seeder
                 Pet::firstWhere('name','yuno'),
                 [
                     'adopted' => Carbon::createFromDate(2013,3,5),
-                    'record_author' => env('API_MASTER_KEY')
+                    'token_id' => env('API_MASTER_KEY_ID')
                 ]
             );
 
@@ -36,7 +36,7 @@ class PersonPetSeeder extends Seeder
                 Person::firstWhere('name','magda'),
                 [
                     'adopted' => Carbon::createFromDate(2015,5,13),
-                    'record_author' => env('API_MASTER_KEY')
+                    'token_id' => env('API_MASTER_KEY_ID')
                 ]
             );
     }

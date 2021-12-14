@@ -24,8 +24,14 @@ class Controller
      * )
      *
      * @OA\Tag(
-     *     name="People",
-     *     description="API Endpoints of People"
+     *      name="People",
+     *      description="API Endpoints of People"
      * )
+     * @OA\SecurityScheme(
+     *      securityScheme="bearer",
+     *      type="http",
+     *      scheme="bearer"
+     * )
+     *
      */
 }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Casts\AuthTokenCustomCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +19,7 @@ class Pet extends Model
     ];
 
     protected $casts = [
-        'record_author' => AuthTokenCustomCast::class
+        'token_id' => 'integer'
     ];
 
     public function type(): \Illuminate\Database\Eloquent\Relations\HasOne

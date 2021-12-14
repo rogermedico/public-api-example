@@ -32,7 +32,7 @@ class PetsSeeder extends Seeder
             Pet::create(array_merge(
                 $pet,
                 [
-                    'record_author' => env('API_MASTER_KEY')
+                    'token_id' => env('API_MASTER_KEY_ID')
                 ]
             ));
         }

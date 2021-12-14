@@ -7,7 +7,9 @@ use App\Models\Person;
 use App\Models\PersonPet;
 use App\Models\Pet;
 use App\Models\PetType;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
@@ -55,6 +57,11 @@ class HomeController extends Controller
         });
     }
 
+    private function createApiToken()
+    {
+        return User::find(1)->createToken('api-token')->plainTextToken;
+    }
+
     /**
      * Handle the incoming request.
      *
@@ -68,7 +75,8 @@ class HomeController extends Controller
             'home',
             [
                 'db' => $this->getTablesInformation(),
-                'routes' => $this->getApiRoutePaths('api')
+                'routes' => $this->getApiRoutePaths('api'),
+                'api_token' => $this->createApiToken()
             ]
         );
     }

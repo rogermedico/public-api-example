@@ -33,7 +33,7 @@ class PeopleSeeder extends Seeder
             Person::create(array_merge(
                 $person,
                 [
-                    'record_author' => env('API_MASTER_KEY')
+                    'token_id' => env('API_MASTER_KEY_ID')
                 ]
             ));
         }

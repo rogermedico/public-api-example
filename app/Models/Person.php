@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Casts\AuthTokenCustomCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +11,8 @@ class Person extends Model
 
     protected $fillable = [
         'name',
-        'birthday'
+        'birthday',
+        'token_id',
     ];
 
     protected $hidden = [
@@ -20,7 +20,7 @@ class Person extends Model
     ];
 
     protected $casts = [
-        'record_author' => AuthTokenCustomCast::class
+        'token_id' => 'integer'
     ];
 
     public function pets(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
