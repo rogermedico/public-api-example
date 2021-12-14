@@ -17,6 +17,7 @@ class CreatePeopleTable extends Migration
             $table->id();
             $table->string('name');
             $table->date('birthday')->nullable();
+            $table->string('record_author');
             $table->timestamps();
         });
     }

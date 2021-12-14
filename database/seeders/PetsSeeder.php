@@ -29,7 +29,12 @@ class PetsSeeder extends Seeder
 
         foreach ($this->pets as $pet)
         {
-            Pet::create($pet);
+            Pet::create(array_merge(
+                $pet,
+                [
+                    'record_author' => env('API_MASTER_KEY')
+                ]
+            ));
         }
 
     }

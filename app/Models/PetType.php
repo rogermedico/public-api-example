@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\AuthTokenCustomCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,5 +16,9 @@ class PetType extends Model
 
     protected $hidden = [
 
+    ];
+
+    protected $casts = [
+        'record_author' => AuthTokenCustomCast::class
     ];
 }

@@ -6,24 +6,16 @@ use App\Casts\AuthTokenCustomCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PersonPet extends Model
+class AuthToken extends Model
 {
     use HasFactory;
 
-    protected $table = 'person_pet';
-
     protected $fillable = [
-        'person_id',
-        'pet_id',
-        'adopted'
-    ];
-
-    protected $hidden = [
-
+        'auth_token',
     ];
 
     protected $casts = [
-        'record_author' => AuthTokenCustomCast::class
+        'auth_token' => AuthTokenCustomCast::class
     ];
 
 }

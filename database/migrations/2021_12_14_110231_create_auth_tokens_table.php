@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePetTypesTable extends Migration
+class CreateAuthTokensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreatePetTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pet_types', function (Blueprint $table) {
+        Schema::create('auth_tokens', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('record_author');
+            $table->string('auth_token');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreatePetTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pet_types');
+        Schema::dropIfExists('auth_tokens');
     }
 }

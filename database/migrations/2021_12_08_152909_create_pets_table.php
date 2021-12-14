@@ -18,6 +18,7 @@ class CreatePetsTable extends Migration
             $table->string('name');
             $table->bigInteger('pet_type_id')->unsigned();
             $table->foreign('pet_type_id')->references('id')->on('pet_types')->onDelete('cascade');
+            $table->string('record_author');
             $table->timestamps();
         });
     }

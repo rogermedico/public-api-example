@@ -11,7 +11,7 @@ class PetTypesSeeder extends Seeder
     private $petTypes = [
         [
             'id' => 1,
-            'name' => 'cat'
+            'name' => 'cat',
         ],
         [
             'id' => 2,
@@ -38,7 +38,12 @@ class PetTypesSeeder extends Seeder
 
         foreach($this->petTypes as $petType)
         {
-            PetType::create($petType);
+            PetType::create(array_merge(
+                $petType,
+                [
+                    'record_author' => env('API_MASTER_KEY')
+                ]
+            ));
         }
 
     }

@@ -24,7 +24,8 @@ class PersonPetSeeder extends Seeder
             ->attach(
                 Pet::firstWhere('name','yuno'),
                 [
-                    'adopted' => Carbon::createFromDate(2013,3,5)
+                    'adopted' => Carbon::createFromDate(2013,3,5),
+                    'record_author' => env('API_MASTER_KEY')
                 ]
             );
 
@@ -34,7 +35,8 @@ class PersonPetSeeder extends Seeder
             ->attach(
                 Person::firstWhere('name','magda'),
                 [
-                    'adopted' => Carbon::createFromDate(2015,5,13)
+                    'adopted' => Carbon::createFromDate(2015,5,13),
+                    'record_author' => env('API_MASTER_KEY')
                 ]
             );
     }

@@ -30,7 +30,12 @@ class PeopleSeeder extends Seeder
 
         foreach ($persons as $person)
         {
-            Person::create($person);
+            Person::create(array_merge(
+                $person,
+                [
+                    'record_author' => env('API_MASTER_KEY')
+                ]
+            ));
         }
 
     }
