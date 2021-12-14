@@ -6,17 +6,17 @@ use DateTime;
 use Illuminate\Support\Facades\Date;
 
 /**
- * Class Person
+ * Class Pet
  *
  * @OA\Schema(
- *     title="Person",
- *     description="Person model",
+ *     title="Pet",
+ *     description="Pet model",
  *     @OA\Xml(
- *         name="Person"
+ *         name="Pet"
  *     )
  * )
  */
-class Person
+class Pet
 {
 
     /**
@@ -36,7 +36,7 @@ class Person
      *     title="name",
      *     description="name",
      *     format="string",
-     *     example="Roger Medico"
+     *     example="Yuno"
      * )
      *
      * @var string
@@ -45,15 +45,15 @@ class Person
 
     /**
      * @OA\Property(
-     *     title="birthday",
-     *     description="birthday",
-     *     format="date",
-     *     example="1989-11-17"
+     *     title="pet_type_id",
+     *     description="FK to pet type",
+     *     format="int64",
+     *     example="1"
      * )
      *
      * @var Date
      */
-    private $birthday;
+    private $pet_type_id;
 
     /**
      * @OA\Property(

@@ -27,6 +27,12 @@ class Controller
      *      name="People",
      *      description="API Endpoints of People"
      * )
+     *
+     * @OA\Tag(
+     *      name="Pets",
+     *      description="API Endpoints of Pets"
+     * )
+     *
      * @OA\SecurityScheme(
      *      securityScheme="bearer",
      *      type="http",

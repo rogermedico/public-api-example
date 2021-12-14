@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\PersonController;
+use App\Http\Controllers\api\PetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 Route::apiResource('person', PersonController::class)->middleware('auth:sanctum');
+Route::apiResource('pet', PetController::class)->middleware('auth:sanctum');

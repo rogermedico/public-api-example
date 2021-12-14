@@ -2,15 +2,13 @@
 
 namespace App\Virtual\Requests;
 
-
 use Carbon\Traits\Date;
 
 /**
  * @OA\Schema(
  *      title="UpdatePersonRequest",
  *      description="Update Person request body data",
- *      type="object",
- *      required={"name"}
+ *      type="object"
  * )
  */
 class UpdatePersonRequest

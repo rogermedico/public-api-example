@@ -11,7 +11,8 @@ class Pet extends Model
 
     protected $fillable = [
         'name',
-        'type'
+        'pet_type_id',
+        'token_id'
     ];
 
     protected $hidden = [

@@ -332,7 +332,387 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Project id",
+                        "description": "Person id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Object not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/pet": {
+            "get": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Get list of pets",
+                "description": "Returns list of pets",
+                "operationId": "getPetList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PetsResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Store new pet",
+                "description": "Returns the pet created data",
+                "operationId": "storePet",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePetRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Pet"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The name field is required."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/pet/{id}": {
+            "get": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Get pet information",
+                "description": "Returns pet data",
+                "operationId": "getPetById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "pet id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PetResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Object not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Update existing pet",
+                "description": "Returns updated pet data",
+                "operationId": "updatePet",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Pet id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePetRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Pet"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The name must not be greater than 255 characters."
+                                            }
+                                        },
+                                        "pet_type_id": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The selected pet type id is invalid."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Object not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Delete existing pet",
+                "description": "Deletes a pet record and returns no content",
+                "operationId": "deletePet",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Pet id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -427,6 +807,13 @@
                         "format": "date",
                         "example": "1989-11-17"
                     },
+                    "token_id": {
+                        "title": "token_id",
+                        "description": "token id identifying the author of the request",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "10"
+                    },
                     "created_at": {
                         "title": "created_at",
                         "description": "when record was created",
@@ -445,6 +832,58 @@
                 "type": "object",
                 "xml": {
                     "name": "Person"
+                }
+            },
+            "Pet": {
+                "title": "Pet",
+                "description": "Pet model",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "type": "string",
+                        "format": "string",
+                        "example": "Yuno"
+                    },
+                    "pet_type_id": {
+                        "title": "pet_type_id",
+                        "description": "FK to pet type",
+                        "type": "string",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "token_id": {
+                        "title": "token_id",
+                        "description": "token id identifying the author of the request",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "10"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "when record was created",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "when record was updated",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Pet"
                 }
             },
             "StorePersonRequest": {
@@ -470,12 +909,33 @@
                 },
                 "type": "object"
             },
+            "StorePetRequest": {
+                "title": "StorePetRequest",
+                "description": "Store Pet request body data",
+                "required": [
+                    "name",
+                    "pet_type_id"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the new Pet",
+                        "type": "string",
+                        "example": "Yuno"
+                    },
+                    "pet_type_id": {
+                        "title": "pet_type_id",
+                        "description": "FK to the pet type table",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
             "UpdatePersonRequest": {
                 "title": "UpdatePersonRequest",
                 "description": "Update Person request body data",
-                "required": [
-                    "name"
-                ],
                 "properties": {
                     "name": {
                         "title": "name",
@@ -489,6 +949,25 @@
                         "type": "string",
                         "format": "date",
                         "example": "1990-5-30"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePetRequest": {
+                "title": "UpdatePetRequest",
+                "description": "Update Pet request body data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "New name for the updated Pet",
+                        "type": "string",
+                        "example": "Yuno"
+                    },
+                    "birthday": {
+                        "title": "pet_type_id",
+                        "description": "New FK to the pet id for the updated Pet",
+                        "type": "integer",
+                        "example": "1"
                     }
                 },
                 "type": "object"
@@ -523,6 +1002,37 @@
                 "xml": {
                     "name": "PersonResource"
                 }
+            },
+            "PetResource": {
+                "title": "PetsResource",
+                "description": "Pets resource",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/Pet"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PetsResource"
+                }
+            },
+            "PetsResource": {
+                "title": "PetsResource",
+                "description": "Pets resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Pet"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PetsResource"
+                }
             }
         },
         "securitySchemes": {
@@ -536,6 +1046,10 @@
         {
             "name": "People",
             "description": "API Endpoints of People"
+        },
+        {
+            "name": "Pets",
+            "description": "API Endpoints of Pets"
         }
     ],
     "security": [
