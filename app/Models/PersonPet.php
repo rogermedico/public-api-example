@@ -14,7 +14,8 @@ class PersonPet extends Model
     protected $fillable = [
         'person_id',
         'pet_id',
-        'adopted'
+        'adopted',
+        'token_id'
     ];
 
     protected $hidden = [

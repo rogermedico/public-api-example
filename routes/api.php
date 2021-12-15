@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\PersonController;
+use App\Http\Controllers\api\PersonPetController;
 use App\Http\Controllers\api\PetController;
 use App\Http\Controllers\api\PetTypeController;
 use Illuminate\Http\Request;
@@ -33,3 +34,7 @@ Route::apiResource('pettype', PetTypeController::class, [
         'pettype' => 'petType'
     ]
 ])->middleware('auth:sanctum');
+
+Route::apiResource('personpet',PersonPetController::class)
+    ->except('show')
+    ->middleware('auth:sanctum');
