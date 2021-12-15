@@ -10,14 +10,12 @@ class PetType extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name',
+        'token_id'
     ];
 
     protected $hidden = [
 
     ];
 
-    protected $casts = [
-        'token_id' => 'integer'
-    ];
 }

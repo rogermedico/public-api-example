@@ -15,8 +15,8 @@ class CreatePetTypesTable extends Migration
     {
         Schema::create('pet_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('token_id');
+            $table->string('name')->unique();
+            $table->bigInteger('token_id');
             $table->timestamps();
         });
     }

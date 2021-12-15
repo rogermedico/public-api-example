@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\PersonController;
 use App\Http\Controllers\api\PetController;
+use App\Http\Controllers\api\PetTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,9 @@ Route::apiResource('person', PersonController::class)->middleware('auth:sanctum'
 Route::get('pet/all', [PetController::class, 'getPetsWithRelations'])->middleware('auth:sanctum');
 Route::get('pet/all/{pet}', [PetController::class, 'getPetWithRelations'])->middleware('auth:sanctum');
 Route::apiResource('pet', PetController::class)->middleware('auth:sanctum');
+
+Route::apiResource('pettype', PetTypeController::class, [
+    'parameters' => [
+        'pettype' => 'petType'
+    ]
+])->middleware('auth:sanctum');

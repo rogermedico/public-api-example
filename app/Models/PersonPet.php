@@ -21,8 +21,4 @@ class PersonPet extends Model
 
     ];
 
-    protected $casts = [
-        'token_id' => 'integer'
-    ];
-
 }

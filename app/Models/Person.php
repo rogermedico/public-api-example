@@ -19,10 +19,6 @@ class Person extends Model
         'pivot'
     ];
 
-    protected $casts = [
-        'token_id' => 'integer'
-    ];
-
     public function pets(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Pet::class)->withTimestamps();

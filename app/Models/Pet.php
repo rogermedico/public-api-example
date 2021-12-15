@@ -19,10 +19,6 @@ class Pet extends Model
         'pivot',
     ];
 
-    protected $casts = [
-        'token_id' => 'integer'
-    ];
-
     public function type(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(PetType::class);

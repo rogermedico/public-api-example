@@ -33,6 +33,11 @@ class Controller
      *      description="API Endpoints of Pets"
      * )
      *
+     * @OA\Tag(
+     *      name="Pet Types",
+     *      description="API Endpoints of Pet Types"
+     * )
+     *
      * @OA\SecurityScheme(
      *      securityScheme="bearer",
      *      type="http",
