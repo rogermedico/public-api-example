@@ -132,6 +132,119 @@
                 ]
             }
         },
+        "/person/all": {
+            "get": {
+                "tags": [
+                    "People"
+                ],
+                "summary": "Get list of people with all information",
+                "description": "Returns list of people with information of all of their relations",
+                "operationId": "getPeopleWithAllInformation",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PeopleWithPetsResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/person/all/{id}": {
+            "get": {
+                "tags": [
+                    "People"
+                ],
+                "summary": "Get person with all information",
+                "description": "Returns person with information of all of their relations",
+                "operationId": "getPersonWithAllInformation",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Person id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PersonWithPetsResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Object not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/person/{id}": {
             "get": {
                 "tags": [
@@ -512,6 +625,119 @@
                 ]
             }
         },
+        "/pet/all": {
+            "get": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Get list of pets with all information",
+                "description": "Returns list of pets with information of all of their relations",
+                "operationId": "getPetsWithAllInformation",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PetsWithRelationsPersonsResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/pet/all/{id}": {
+            "get": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Get pet with all information",
+                "description": "Returns pet with information of all of their relations",
+                "operationId": "getPetWithAllInformation",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Pet id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PetWithRelationsPersonsResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Object not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/pet/{id}": {
             "get": {
                 "tags": [
@@ -834,6 +1060,66 @@
                     "name": "Person"
                 }
             },
+            "PersonWithPets": {
+                "title": "PersonWithPets",
+                "description": "Person model with pets",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "type": "string",
+                        "format": "string",
+                        "example": "Roger Medico"
+                    },
+                    "birthday": {
+                        "title": "birthday",
+                        "description": "birthday",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1989-11-17"
+                    },
+                    "token_id": {
+                        "title": "token_id",
+                        "description": "token id identifying the author of the request",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "10"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "when record was created",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "when record was updated",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    },
+                    "pets": {
+                        "title": "pets",
+                        "description": "pets belonging to the person",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PetWithRelations"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Person with pets"
+                }
+            },
             "Pet": {
                 "title": "Pet",
                 "description": "Pet model",
@@ -884,6 +1170,155 @@
                 "type": "object",
                 "xml": {
                     "name": "Pet"
+                }
+            },
+            "PetType": {
+                "title": "PetType",
+                "description": "Pet type model",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "type": "string",
+                        "format": "string",
+                        "example": "cat"
+                    },
+                    "token_id": {
+                        "title": "token_id",
+                        "description": "token id identifying the author of the request",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "10"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "when record was created",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "when record was updated",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PetType"
+                }
+            },
+            "PetWithRelations": {
+                "title": "PetWithRelations",
+                "description": "Pet with relations model",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "type": "string",
+                        "format": "string",
+                        "example": "Yuno"
+                    },
+                    "token_id": {
+                        "title": "token_id",
+                        "description": "token id identifying the author of the request",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "10"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "when record was created",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "when record was updated",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    },
+                    "pet_type": {
+                        "$ref": "#/components/schemas/PetType"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Pet with relations"
+                }
+            },
+            "PetWithRelationsPersons": {
+                "title": "PetWithRelationsPersons",
+                "description": "Pet with relations and owners model",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "type": "string",
+                        "format": "string",
+                        "example": "Yuno"
+                    },
+                    "token_id": {
+                        "title": "token_id",
+                        "description": "token id identifying the author of the request",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "10"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "when record was created",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "when record was updated",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    },
+                    "pet_type": {
+                        "$ref": "#/components/schemas/PetType"
+                    },
+                    "persons": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Person"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Pet with relations and owners"
                 }
             },
             "StorePersonRequest": {
@@ -990,6 +1425,24 @@
                     "name": "PeopleResource"
                 }
             },
+            "PeopleWithPetsResource": {
+                "title": "PeopleWithPetsResource",
+                "description": "People resource with pets",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PersonWithPets"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PeopleWithPtsResource"
+                }
+            },
             "PersonResource": {
                 "title": "PersonResource",
                 "description": "Person resource",
@@ -1003,6 +1456,19 @@
                     "name": "PersonResource"
                 }
             },
+            "PersonWithPetsResource": {
+                "title": "PersonWithPetsResource",
+                "description": "Person resource with pets",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/PersonWithPets"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PersonWithPetsResource"
+                }
+            },
             "PetResource": {
                 "title": "PetsResource",
                 "description": "Pets resource",
@@ -1014,6 +1480,19 @@
                 "type": "object",
                 "xml": {
                     "name": "PetsResource"
+                }
+            },
+            "PetWithRelationsPersonsResource": {
+                "title": "PetWithRelationsPersonsResource",
+                "description": "Pet resource with relations and owners",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/PetWithRelationsPersons"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PetWithRelationsPersonsResource"
                 }
             },
             "PetsResource": {
@@ -1032,6 +1511,24 @@
                 "type": "object",
                 "xml": {
                     "name": "PetsResource"
+                }
+            },
+            "PetsWithRelationsPersonsResource": {
+                "title": "PetsWithRelationsPersonsResource",
+                "description": "Pets resource with relations and owners",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PetWithRelationsPersons"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PetsWithRelationsPersonsResource"
                 }
             }
         },

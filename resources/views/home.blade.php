@@ -17,8 +17,8 @@
             <h1>{{__('your authentication key')}}</h1>
             <div class="ps-3">
                 <p>
-                    This authentication token allows you to retrieve (GET) and crate (POST) DB records as you please, but you can just modify (PUT) or
-                    delete (DELETE) contents created with the same authentication token. The column <code>token_id</code> from the DB tables shows the id from the token used
+                    This authentication token allows you to retrieve (GET) and create (POST) DB records as you please, but you can just modify (PUT) or
+                    delete (DELETE) records created with the same authentication token. The column <code>token_id</code> from the DB tables shows the id from the token used
                     to create the record.
                 </p>
                 <p>The authentication is made with a Bearer token. To correctly authenticate your requests a header entry
@@ -29,7 +29,17 @@
                 <p>An example of the authentication header that has to be included in every request could be as follows
                     <code>Authorization: Bearer @{{token provided}}</code></p>
                 <p>Tokens will be valid for 24 hours.</p>
-                <div class="alert alert-success text-center font-monospace authentication-key">{{$api_token}}</div>
+                <div class="text-center">
+                    <div class="d-sm-none table-responsive">
+                    <table class="table table-borderless mt-2">
+                        <tr><td>
+                    <span id="token" class="alert alert-success text-center font-monospace authentication-key">{{$api_token}}</span>
+                            </td></tr></table></div>
+                    <span id="token" class="d-none d-sm-inline alert alert-success text-center font-monospace authentication-key">{{$api_token}}</span>
+                    <a href="#" id="copy-clipboard" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard" alt="Copy to clipboard">
+                        <x-heroicon-o-clipboard-copy class="icon"/>
+                    </a>
+                </div>
             </div>
         </section>
         <section class="mb-3">

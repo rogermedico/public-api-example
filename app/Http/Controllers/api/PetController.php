@@ -7,6 +7,7 @@ use App\Http\Requests\StorePetRequest;
 use App\Http\Requests\UpdatePetRequest;
 use App\Http\Resources\PetResource;
 use App\Models\Pet;
+use App\Models\PetType;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -48,6 +49,117 @@ class PetController extends Controller
     public function index(Request $request)
     {
         return (new PetResource(Pet::all()))
+            ->response()
+            ->setStatusCode(Response::HTTP_OK);
+    }
+
+    /**
+     * Display a list of resources.
+     *
+     * @return \Illuminate\Http\JsonResponse | \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *      path="/pet/all",
+     *      operationId="getPetsWithAllInformation",
+     *      tags={"Pets"},
+     *      summary="Get list of pets with all information",
+     *      description="Returns list of pets with information of all of their relations",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/PetsWithRelationsPersonsResource")
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Unauthenticated"
+     *              )
+     *          )
+     *      ),
+     *      security={
+     *          {"bearer": {}}
+     *      }
+     * ),
+     */
+    public function getPetsWithRelations (Request $request)
+    {
+        $pets = Pet::with('persons')->get();
+        foreach ($pets as $pet)
+        {
+            $pet->pet_type = PetType::find($pet->pet_type_id);
+            unset($pet->pet_type_id);
+        }
+        return (new PetResource($pets))
+            ->response()
+            ->setStatusCode(Response::HTTP_OK);
+    }
+
+    /**
+     * Display a list of resources.
+     *
+     * @return \Illuminate\Http\JsonResponse | \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *      path="/pet/all/{id}",
+     *      operationId="getPetWithAllInformation",
+     *      tags={"Pets"},
+     *      summary="Get pet with all information",
+     *      description="Returns pet with information of all of their relations",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Pet id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/PetWithRelationsPersonsResource")
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Object not found"
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Unauthenticated"
+     *              )
+     *          )
+     *      ),
+     *      security={
+     *          {"bearer": {}}
+     *      }
+     * ),
+     */
+    public function getPetWithRelations(Request $request, Pet $pet)
+    {
+        $pet->pet_type = PetType::find($pet->pet_type_id);
+        unset($pet->pet_type_id);
+        $pet->load('persons');
+
+        return (new PetResource($pet))
             ->response()
             ->setStatusCode(Response::HTTP_OK);
     }

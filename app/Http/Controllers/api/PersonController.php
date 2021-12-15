@@ -7,6 +7,7 @@ use App\Http\Requests\StorePersonRequest;
 use App\Http\Requests\UpdatePersonRequest;
 use App\Http\Resources\PersonResource;
 use App\Models\Person;
+use App\Models\PetType;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 
@@ -48,6 +49,122 @@ class PersonController extends Controller
     public function index(Request $request)
     {
         return (new PersonResource(Person::all()))
+            ->response()
+            ->setStatusCode(Response::HTTP_OK);
+    }
+
+    /**
+     * Display a list of resources.
+     *
+     * @return \Illuminate\Http\JsonResponse | \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *      path="/person/all",
+     *      operationId="getPeopleWithAllInformation",
+     *      tags={"People"},
+     *      summary="Get list of people with all information",
+     *      description="Returns list of people with information of all of their relations",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/PeopleWithPetsResource")
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Unauthenticated"
+     *              )
+     *          )
+     *      ),
+     *      security={
+     *          {"bearer": {}}
+     *      }
+     * ),
+     */
+    public function getPeopleWithRelations (Request $request)
+    {
+        $people = Person::with('pets')->get();
+        foreach ($people as $person)
+        {
+            foreach($person->pets as $pet)
+            {
+                $pet->pet_type = PetType::find($pet->pet_type_id);
+                unset($pet->pet_type_id);
+            }
+        }
+        return (new PersonResource($people))
+            ->response()
+            ->setStatusCode(Response::HTTP_OK);
+    }
+
+    /**
+     * Display a list of resources.
+     *
+     * @return \Illuminate\Http\JsonResponse | \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *      path="/person/all/{id}",
+     *      operationId="getPersonWithAllInformation",
+     *      tags={"People"},
+     *      summary="Get person with all information",
+     *      description="Returns person with information of all of their relations",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Person id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/PersonWithPetsResource")
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Object not found"
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Unauthenticated"
+     *              )
+     *          )
+     *      ),
+     *      security={
+     *          {"bearer": {}}
+     *      }
+     * ),
+     */
+    public function getPersonWithRelations(Request $request, Person $person)
+    {
+        foreach($person->pets as $pet)
+        {
+            $pet->pet_type = PetType::find($pet->pet_type_id);
+            unset($pet->pet_type_id);
+        }
+
+        return (new PersonResource($person))
             ->response()
             ->setStatusCode(Response::HTTP_OK);
     }
