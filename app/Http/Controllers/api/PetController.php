@@ -10,6 +10,7 @@ use App\Http\Resources\PetWithPersonsResource;
 use App\Models\Pet;
 use App\Models\PetType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
 class PetController extends Controller
@@ -383,10 +384,7 @@ class PetController extends Controller
      */
     public function update(UpdatePetRequest $request, Pet $pet)
     {
-        if ($request->user()->currentAccessToken()->id !== $pet->token_id)
-        {
-            return response()->json(['message' => 'Forbidden'],Response::HTTP_FORBIDDEN);
-        }
+        Gate::authorize('update', $pet);
 
         $pet->update(($request->validated()));
         return (new PetResource($pet))
@@ -462,10 +460,7 @@ class PetController extends Controller
      */
     public function destroy(Request $request, Pet $pet)
     {
-        if ($request->user()->currentAccessToken()->id !== $pet->token_id)
-        {
-            return response()->json(['message' => 'Forbidden'],Response::HTTP_FORBIDDEN);
-        }
+        Gate::authorize('destroy', $pet);
 
         $pet->delete();
         return response()->noContent(Response::HTTP_NO_CONTENT);
