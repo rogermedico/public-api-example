@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePersonPetRequest;
+use App\Http\Requests\UpdatePersonPetRequest;
 use App\Http\Resources\PersonPetResource;
 use App\Models\PersonPet;
 use Illuminate\Http\Request;
@@ -17,15 +18,15 @@ class PersonPetController extends Controller
      * @return \Illuminate\Http\JsonResponse | \Illuminate\Http\Response
      *
      * @OA\Get(
-     *      path="/pet",
-     *      operationId="getPetList",
-     *      tags={"Pets"},
-     *      summary="Get list of pets",
-     *      description="Returns list of pets",
+     *      path="/personpet",
+     *      operationId="getPersonPetList",
+     *      tags={"Person Pets"},
+     *      summary="Get list of the relations between people and pets",
+     *      description="Returns list of people and pets relations",
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/PetsResource")
+     *          @OA\JsonContent(ref="#/components/schemas/PersonPetsResource")
      *      ),
      *      @OA\Response(
      *          response=401,
@@ -58,19 +59,19 @@ class PersonPetController extends Controller
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|object
      *
      * @OA\Post(
-     *      path="/pet",
-     *      operationId="storePet",
-     *      tags={"Pets"},
-     *      summary="Store new pet",
-     *      description="Returns the pet created data",
+     *      path="/personpet",
+     *      operationId="storePersonPet",
+     *      tags={"Person Pets"},
+     *      summary="Store new person pet",
+     *      description="Store new relation between a person and a pet",
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/StorePetRequest")
+     *          @OA\JsonContent(ref="#/components/schemas/StorePersonPetRequest")
      *      ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Pet")
+     *          @OA\JsonContent(ref="#/components/schemas/PersonPet")
      *       ),
      *      @OA\Response(
      *          response=422,
@@ -78,11 +79,11 @@ class PersonPetController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(
-     *                  property="name",
+     *                  property="person_id",
      *                  type="array",
      *                  @OA\Items(
      *                      type="string",
-     *                      example="The name field is required."
+     *                      example="The selected person id is invalid."
      *                  )
      *              )
      *          )
@@ -120,84 +121,21 @@ class PersonPetController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  Pet $pet
-     * @return \Illuminate\Http\JsonResponse | \Illuminate\Http\Response
-     *
-     * @OA\Get(
-     *      path="/pet/{id}",
-     *      operationId="getPetById",
-     *      tags={"Pets"},
-     *      summary="Get pet information",
-     *      description="Returns pet data",
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="pet id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/PetResource")
-     *       ),
-     *       @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="message",
-     *                  type="string",
-     *                  example="Object not found"
-     *              )
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="message",
-     *                  type="string",
-     *                  example="Unauthenticated"
-     *              )
-     *          )
-     *      ),
-     *      security={
-     *          {"bearer": {}}
-     *      }
-     * )
-     *
-     */
-    public function show(Pet $pet)
-    {
-        return (new PetResource($pet))
-            ->response()
-            ->setStatusCode(Response::HTTP_OK);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Pet $pet
+     * @param  PersonPet $personPet
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|object
      *
      * @OA\Put(
-     *      path="/pet/{id}",
-     *      operationId="updatePet",
-     *      tags={"Pets"},
-     *      summary="Update existing pet",
-     *      description="Returns updated pet data",
+     *      path="/personpet/{id}",
+     *      operationId="updatePersonPet",
+     *      tags={"Person Pets"},
+     *      summary="Update existing relation between person and pet",
+     *      description="Returns updated person pet data",
      *      @OA\Parameter(
      *          name="id",
-     *          description="Pet id",
+     *          description="personPet id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -206,12 +144,12 @@ class PersonPetController extends Controller
      *      ),
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/UpdatePetRequest")
+     *          @OA\JsonContent(ref="#/components/schemas/UpdatePersonPetRequest")
      *      ),
      *      @OA\Response(
      *          response=202,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Pet")
+     *          @OA\JsonContent(ref="#/components/schemas/PersonPet")
      *       ),
      *       @OA\Response(
      *          response=422,
@@ -219,19 +157,19 @@ class PersonPetController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(
-     *                  property="name",
+     *                  property="person_id",
      *                  type="array",
      *                  @OA\Items(
      *                      type="string",
-     *                      example="The name must not be greater than 255 characters."
+     *                      example="The combination of person_id and pet_id already exists."
      *                  )
      *              ),
      *              @OA\Property(
-     *                  property="pet_type_id",
+     *                  property="adopted",
      *                  type="array",
      *                  @OA\Items(
      *                      type="string",
-     *                      example="The selected pet type id is invalid."
+     *                      example="The adopted is not a valid date."
      *                  )
      *              )
      *          )
@@ -277,15 +215,14 @@ class PersonPetController extends Controller
      *      }
      * )
      */
-    public function update(UpdatePetRequest $request, Pet $pet)
+    public function update(UpdatePersonPetRequest $request, PersonPet $personPet)
     {
-        if ($request->user()->currentAccessToken()->id !== $pet->token_id)
+        if ($request->user()->currentAccessToken()->id !== $personPet->token_id)
         {
             return response()->json(['message' => 'Forbidden'],Response::HTTP_FORBIDDEN);
         }
-
-        $pet->update(($request->validated()));
-        return (new PetResource($pet))
+        $personPet->update(($request->validated()));
+        return (new PersonPetResource($personPet))
             ->response()
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }
@@ -293,18 +230,18 @@ class PersonPetController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Pet $pet
+     * @param  PersonPet $personPet
      * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      *
      * * @OA\Delete(
-     *      path="/pet/{id}",
-     *      operationId="deletePet",
-     *      tags={"Pets"},
-     *      summary="Delete existing pet",
-     *      description="Deletes a pet record and returns no content",
+     *      path="/personpet/{id}",
+     *      operationId="deletePersonPet",
+     *      tags={"Person Pets"},
+     *      summary="Delete existing person pet relation",
+     *      description="Deletes a person pet record and returns no content",
      *      @OA\Parameter(
      *          name="id",
-     *          description="Pet id",
+     *          description="PersonPet id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -356,14 +293,14 @@ class PersonPetController extends Controller
      *      }
      * )
      */
-    public function destroy(Request $request, Pet $pet)
+    public function destroy(Request $request, PersonPet $personPet)
     {
-        if ($request->user()->currentAccessToken()->id !== $pet->token_id)
+        if ($request->user()->currentAccessToken()->id !== $personPet->token_id)
         {
             return response()->json(['message' => 'Forbidden'],Response::HTTP_FORBIDDEN);
         }
 
-        $pet->delete();
+        $personPet->delete();
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
 }

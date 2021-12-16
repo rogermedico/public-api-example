@@ -35,6 +35,9 @@ Route::apiResource('pettype', PetTypeController::class, [
     ]
 ])->middleware('auth:sanctum');
 
-Route::apiResource('personpet',PersonPetController::class)
-    ->except('show')
+Route::apiResource('personpet',PersonPetController::class, [
+    'parameters' => [
+        'personpet' => 'personPet'
+    ]
+])->except('show')
     ->middleware('auth:sanctum');

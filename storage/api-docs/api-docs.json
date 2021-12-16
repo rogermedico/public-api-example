@@ -512,6 +512,318 @@
                 ]
             }
         },
+        "/personpet": {
+            "get": {
+                "tags": [
+                    "Person Pets"
+                ],
+                "summary": "Get list of the relations between people and pets",
+                "description": "Returns list of people and pets relations",
+                "operationId": "getPersonPetList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PersonPetsResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Person Pets"
+                ],
+                "summary": "Store new person pet",
+                "description": "Store new relation between a person and a pet",
+                "operationId": "storePersonPet",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePersonPetRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PersonPet"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "person_id": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The selected person id is invalid."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/personpet/{id}": {
+            "put": {
+                "tags": [
+                    "Person Pets"
+                ],
+                "summary": "Update existing relation between person and pet",
+                "description": "Returns updated person pet data",
+                "operationId": "updatePersonPet",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "personPet id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePersonPetRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PersonPet"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "person_id": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The combination of person_id and pet_id already exists."
+                                            }
+                                        },
+                                        "adopted": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The adopted is not a valid date."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Object not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Person Pets"
+                ],
+                "summary": "Delete existing person pet relation",
+                "description": "Deletes a person pet record and returns no content",
+                "operationId": "deletePersonPet",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "PersonPet id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Object not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/pet": {
             "get": {
                 "tags": [
@@ -1433,6 +1745,65 @@
                     "name": "Person"
                 }
             },
+            "PersonPet": {
+                "title": "PersonPet",
+                "description": "PersonPet model",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "person_id": {
+                        "title": "person_id",
+                        "description": "person_id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 2
+                    },
+                    "pet_id": {
+                        "title": "pet_id",
+                        "description": "pet_id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 7
+                    },
+                    "adopted": {
+                        "title": "adoption",
+                        "description": "the date when the owner adopted the pet",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1989-11-17"
+                    },
+                    "token_id": {
+                        "title": "token_id",
+                        "description": "token id identifying the author of the request",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "10"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "when record was created",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "when record was updated",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2021-12-10T10:31:23.000000Z"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PersonPet"
+                }
+            },
             "PersonWithPets": {
                 "title": "PersonWithPets",
                 "description": "Person model with pets",
@@ -1694,6 +2065,38 @@
                     "name": "Pet with relations and owners"
                 }
             },
+            "StorePersonPetRequest": {
+                "title": "StorePersonPetRequest",
+                "description": "Store Person Pet request body data",
+                "required": [
+                    "person_id",
+                    "pet_id"
+                ],
+                "properties": {
+                    "person_id": {
+                        "title": "person_id",
+                        "description": "person_id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 2
+                    },
+                    "pet_id": {
+                        "title": "pet_id",
+                        "description": "pet_id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 7
+                    },
+                    "adopted": {
+                        "title": "adoption",
+                        "description": "the date when the owner adopted the pet",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1989-11-17"
+                    }
+                },
+                "type": "object"
+            },
             "StorePersonRequest": {
                 "title": "StorePersonRequest",
                 "description": "Store Person request body data",
@@ -1753,6 +2156,34 @@
                         "description": "Name of the new pet type",
                         "type": "string",
                         "example": "cat"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePersonPetRequest": {
+                "title": "UpdatePersonPetRequest",
+                "description": "Update Person Pet request body data",
+                "properties": {
+                    "person_id": {
+                        "title": "person_id",
+                        "description": "person_id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 2
+                    },
+                    "pet_id": {
+                        "title": "pet_id",
+                        "description": "pet_id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 7
+                    },
+                    "adopted": {
+                        "title": "adoption",
+                        "description": "the date when the owner adopted the pet",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1989-11-17"
                     }
                 },
                 "type": "object"
@@ -1843,6 +2274,24 @@
                 "type": "object",
                 "xml": {
                     "name": "PeopleWithPtsResource"
+                }
+            },
+            "PersonPetsResource": {
+                "title": "PersonPetsResource",
+                "description": "Person Pets resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PersonPet"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PersonPetsResource"
                 }
             },
             "PersonResource": {
