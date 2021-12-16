@@ -2,8 +2,15 @@
 
 namespace App\Providers;
 
-use App\Models\AuthToken;
+use App\Models\Person;
+use App\Models\PersonPet;
+use App\Models\Pet;
+use App\Models\PetType;
 use App\Models\User;
+use App\Policies\PersonPetPolicy;
+use App\Policies\PersonPolicy;
+use App\Policies\PetPolicy;
+use App\Policies\PetTypePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -17,7 +24,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Person::class => PersonPolicy::class,
+        Pet::class => PetPolicy::class,
+        PetType::class => PetTypePolicy::class,
+        PersonPet::class => PersonPetPolicy::class,
     ];
 
     /**

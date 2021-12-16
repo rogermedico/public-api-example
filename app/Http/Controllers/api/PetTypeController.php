@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePetTypeRequest;
 use App\Http\Resources\PetTypeResource;
 use App\Models\PetType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
 class PetTypeController extends Controller
@@ -272,10 +273,7 @@ class PetTypeController extends Controller
      */
     public function update(UpdatePetTypeRequest $request, PetType $petType)
     {
-        if ($request->user()->currentAccessToken()->id !== $petType->token_id)
-        {
-            return response()->json(['message' => 'Forbidden'],Response::HTTP_FORBIDDEN);
-        }
+        Gate::authorize('update', $petType);
 
         $petType->update(($request->validated()));
         return (new PetTypeResource($petType))
@@ -351,10 +349,7 @@ class PetTypeController extends Controller
      */
     public function destroy(Request $request, PetType $petType)
     {
-        if ($request->user()->currentAccessToken()->id !== $petType->token_id)
-        {
-            return response()->json(['message' => 'Forbidden'],Response::HTTP_FORBIDDEN);
-        }
+        Gate::authorize('destroy', $petType);
 
         $petType->delete();
         return response()->noContent(Response::HTTP_NO_CONTENT);
