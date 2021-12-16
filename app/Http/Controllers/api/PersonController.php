@@ -461,7 +461,7 @@ class PersonController extends Controller
     public function destroy(Request $request, Person $person)
     {
         Gate::authorize('destroy',$person);
-
+adsf
         $person->delete();
         return response()->noContent(Response::HTTP_NO_CONTENT);
     }
