@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePetRequest;
 use App\Http\Requests\UpdatePetRequest;
 use App\Http\Resources\PetResource;
+use App\Http\Resources\PetWithPersonsResource;
 use App\Models\Pet;
 use App\Models\PetType;
 use Illuminate\Http\Request;
@@ -88,13 +89,7 @@ class PetController extends Controller
      */
     public function getPetsWithRelations (Request $request)
     {
-        $pets = Pet::with('persons')->get();
-        foreach ($pets as $pet)
-        {
-            $pet->pet_type = PetType::find($pet->pet_type_id);
-            unset($pet->pet_type_id);
-        }
-        return (new PetResource($pets))
+        return (PetWithPersonsResource::collection(Pet::all()))
             ->response()
             ->setStatusCode(Response::HTTP_OK);
     }
@@ -155,11 +150,7 @@ class PetController extends Controller
      */
     public function getPetWithRelations(Request $request, Pet $pet)
     {
-        $pet->pet_type = PetType::find($pet->pet_type_id);
-        unset($pet->pet_type_id);
-        $pet->load('persons');
-
-        return (new PetResource($pet))
+        return (new PetWithPersonsResource($pet))
             ->response()
             ->setStatusCode(Response::HTTP_OK);
     }

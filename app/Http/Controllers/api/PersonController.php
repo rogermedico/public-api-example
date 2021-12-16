@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePersonRequest;
 use App\Http\Requests\UpdatePersonRequest;
 use App\Http\Resources\PersonResource;
+use App\Http\Resources\PersonWithPetsResource;
 use App\Models\Person;
 use App\Models\PetType;
 use Symfony\Component\HttpFoundation\Response;
@@ -88,16 +89,7 @@ class PersonController extends Controller
      */
     public function getPeopleWithRelations (Request $request)
     {
-        $people = Person::with('pets')->get();
-        foreach ($people as $person)
-        {
-            foreach($person->pets as $pet)
-            {
-                $pet->pet_type = PetType::find($pet->pet_type_id);
-                unset($pet->pet_type_id);
-            }
-        }
-        return (new PersonResource($people))
+        return (PersonWithPetsResource::collection(Person::all()))
             ->response()
             ->setStatusCode(Response::HTTP_OK);
     }
@@ -158,13 +150,7 @@ class PersonController extends Controller
      */
     public function getPersonWithRelations(Request $request, Person $person)
     {
-        foreach($person->pets as $pet)
-        {
-            $pet->pet_type = PetType::find($pet->pet_type_id);
-            unset($pet->pet_type_id);
-        }
-
-        return (new PersonResource($person))
+        return (new PersonWithPetsResource($person))
             ->response()
             ->setStatusCode(Response::HTTP_OK);
     }

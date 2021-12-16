@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Person;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PersonResource extends JsonResource

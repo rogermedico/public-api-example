@@ -26,7 +26,7 @@ class Pet extends Model
 
     public function persons(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Person::class,'person_pet')->withTimestamps();
+        return $this->belongsToMany(Person::class,'person_pet')->withPivot('adopted')->withTimestamps();
     }
 
 }
