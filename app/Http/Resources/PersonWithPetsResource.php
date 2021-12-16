@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Person;
+use App\Models\PetType;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PersonWithPetsResource extends JsonResource
@@ -23,6 +24,8 @@ class PersonWithPetsResource extends JsonResource
             'token_id' => $this->token_id,
             'pets' => (Person::find($this->id)->pets)->each(function($pet){
                 $pet->adopted = $pet->pivot->adopted;
+                $pet->pet_type = PetType::find($pet->pet_type_id);
+                unset($pet->pet_type_id);
             }),
             'crated_at' => $this->created_at,
             'updated_at' => $this->updated_at

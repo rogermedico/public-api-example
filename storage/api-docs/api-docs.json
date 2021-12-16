@@ -2002,6 +2002,13 @@
                     },
                     "pet_type": {
                         "$ref": "#/components/schemas/PetType"
+                    },
+                    "adopted": {
+                        "title": "adopted",
+                        "description": "when the pet was adopted",
+                        "type": "string",
+                        "format": "date",
+                        "example": "2021-12-10"
                     }
                 },
                 "type": "object",

@@ -89,4 +89,16 @@ class PetWithRelations
      */
     private $pet_type;
 
+    /**
+     * @OA\Property(
+     *     title="adopted",
+     *     description="when the pet was adopted",
+     *     format="date",
+     *     example="2021-12-10"
+     * )
+     *
+     * @var date
+     */
+    private $adopted;
+
 }
