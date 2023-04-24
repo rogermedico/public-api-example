@@ -14,7 +14,7 @@
     },
     "servers": [
         {
-            "url": "https://public-api.rmedico.com/api",
+            "url": "http://localhost:8080/public/api",
             "description": "API Server"
         }
     ],
