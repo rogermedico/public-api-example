@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\View\Component;
 use function view;
 
-class table extends Component
+class Table extends Component
 {
 
     /**
