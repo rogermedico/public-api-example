@@ -5,6 +5,7 @@ namespace App\View\Components;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\View\Component;
 use function view;
@@ -48,7 +49,15 @@ class Table extends Component
     public function __construct(Model $model, Collection $tableData, string $hint)
     {
         $this->tableName = $model->getTable();
-        $this->tableColumns = Schema::getColumnListing($model->getTable());
+
+        //$this->tableColumns = Schema::getColumnListing($model->getTable());
+
+        $tableColumns = DB::select('show columns from ' . $model->getTable());
+
+        $this->tableColumns = array_map(function($db_column) {
+            return $db_column->Field;
+        }, $tableColumns);
+
         $this->tableData = $tableData->toArray();
         $this->hint = $hint;
         foreach ($this->tableData as $rowKey => $row)
